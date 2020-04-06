@@ -1,0 +1,21 @@
+.home-container{
+	width: 100%;
+	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.home-container > .mockup{
+	width: 100%;
+	height: auto;
+	padding: 2em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.home-container > .mockup > img{
+	width: 100%;
+}

@@ -1,0 +1,44 @@
+.download-banner-container{
+	width: 100%;
+	margin-top: 3em;
+	margin-bottom: 3em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.download-banner-container > .download-banner-img{
+	width: 100%;
+	max-width: 450px;
+}
+
+.download-banner-container > .download-banner-img > img{
+	width: 100%;
+}
+
+.download-banner-container > .download-banner-content{
+	display: flex;
+	align-items: end;
+	justify-content: center;
+	flex-direction: column;
+	margin-left: 1em;
+}
+
+.download-banner-container > .download-banner-content > .download-banner-title{
+	font-family: 'Work Sans';
+	font-weight: 700;
+	color: #FFF;
+	font-size: 2em;
+}
+
+.download-banner-container > .download-banner-content > .download-banner-subtitle{
+	font-family: 'Roboto';
+	font-weight: 400;
+	font-size: 0.9em;
+	color: rgba(255, 255, 255, 0.81);
+	margin-top: 0.25em;
+}
+
+.download-banner-container > .download-banner-content > .download-banner-btn{
+	margin-top: 2em;
+}
