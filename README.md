@@ -7,5 +7,5 @@
   Flixerr's website
 </h1>
 <p>
-The latest website for Flixerr!
+The official website for Flixerr.
 </p>
