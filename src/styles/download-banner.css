@@ -34,7 +34,7 @@
 .download-banner-container
     > .download-banner-content
     > .download-banner-subtitle {
-    font-family: "Roboto";
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.81);

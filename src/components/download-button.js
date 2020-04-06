@@ -81,12 +81,12 @@ class DownloadButton extends Component {
                 showOs: !prevState.showOs,
             }
         })
-	}
-	
-	openLink = async () => {
-		let url = await this.getDownloadLink();
-		window.open(url, '_blank');
-	}
+    }
+
+    openLink = async () => {
+        let url = await this.getDownloadLink()
+        window.open(url, "_blank")
+    }
 
     handleClick = () => {
         let os = this.getOS()
@@ -94,8 +94,8 @@ class DownloadButton extends Component {
             category: `${os} Downloads`,
             action: "Download",
             label: "Flixerr Campaign",
-		})
-		this.openLink();
+        })
+        this.openLink()
     }
 
     render() {
@@ -108,8 +108,8 @@ class DownloadButton extends Component {
             <div
                 className={buttonClass}
                 onMouseEnter={this.toggleShowOs}
-				onMouseLeave={this.toggleShowOs}
-				onClick={this.handleClick}
+                onMouseLeave={this.toggleShowOs}
+                onClick={this.handleClick}
             >
                 <span>
                     <FeatherIcon icon="download" size={20} />

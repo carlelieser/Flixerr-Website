@@ -37,7 +37,10 @@ class IndexPage extends Component {
 
     render() {
         return (
-            <Layout className={this.state.imageLoaded ? "fade-in" : ""}>
+            <Layout
+                fadeLoad={true}
+                className={this.state.imageLoaded ? "fade-in-long" : ""}
+            >
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"

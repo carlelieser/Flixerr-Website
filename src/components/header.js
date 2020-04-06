@@ -7,7 +7,9 @@ import "../styles/header.css"
 const Header = ({ siteTitle }) => (
     <header>
         <div className="brand-container">
-            <div className="brand-title">{siteTitle}</div>
+            <div className="brand-title">
+                <Link to="/">{siteTitle}</Link>
+            </div>
         </div>
         <div className="header-nav">
             <div className="nav-item btn btn-transparent">
@@ -15,7 +17,11 @@ const Header = ({ siteTitle }) => (
                     <Link to="/#features">Features</Link>
                 </span>
             </div>
-            <DownloadButton className="nav-item" analyticsLabel="Header download" text="Download" />
+            <DownloadButton
+                className="nav-item"
+                analyticsLabel="Header download"
+                text="Download"
+            />
         </div>
     </header>
 )

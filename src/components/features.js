@@ -34,7 +34,7 @@ class Features extends Component {
         let features = this.state.featuresList.map(feature => {
             let { icon, title, desc } = feature
             return (
-                <div className="feature">
+                <div key={"feature-" + title} className="feature">
                     <FeatherIcon icon={icon} size={36} />
                     <div className="feature-title">{title}</div>
                     <div className="feature-desc">{desc}</div>

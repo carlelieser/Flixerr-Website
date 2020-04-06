@@ -216,14 +216,6 @@ a * {
     cursor: pointer;
 }
 
-.fade-in {
-    animation: FadeIn 0.25s ease-in-out forwards;
-}
-
-.fade-out {
-    animation: FadeOut 0.25s ease-in-out forwards;
-}
-
 .footer-desc > a {
     position: relative;
 }
@@ -247,6 +239,33 @@ a * {
     transform: translateY(0);
 }
 
+.fade-in-long{
+	animation: FadeInLong 0.4s ease-in-out forwards;
+}
+
+.fade-in {
+    animation: FadeIn 0.25s ease-in-out forwards;
+}
+
+.fade-out {
+    animation: FadeOut 0.25s ease-in-out forwards;
+}
+
+.override-fade{
+	opacity: 1 !important;
+}
+
+@keyframes FadeInLong {
+    0% {
+        opacity: 0;
+        transform: translateY(1%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes FadeIn {
     0% {
         opacity: 0;
@@ -267,42 +286,6 @@ a * {
         opacity: 0;
         transform: translateY(5%);
     }
-}
-
-@font-face {
-    font-family: "Roboto";
-    font-weight: 500;
-    src: url("../fonts/Roboto/Roboto-Medium.ttf");
-}
-
-@font-face {
-    font-family: "Roboto";
-    font-weight: 300;
-    src: url("../fonts/Roboto/Roboto-Light.ttf");
-}
-
-@font-face {
-    font-family: "Work Sans";
-    font-weight: 700;
-    src: url("../fonts//Work_Sans/static/WorkSans-Bold.ttf");
-}
-
-@font-face {
-    font-family: "Work Sans";
-    font-weight: 600;
-    src: url("../fonts//Work_Sans/static/WorkSans-SemiBold.ttf");
-}
-
-@font-face {
-    font-family: "Work Sans";
-    font-weight: 400;
-    src: url("../fonts/Work_Sans/static/WorkSans-Regular.ttf");
-}
-
-@font-face {
-    font-family: "Work Sans";
-    font-weight: 300;
-    src: url("../fonts//Work_Sans//static/WorkSans-Light.ttf");
 }
 
 @media only screen and (max-width: 1046px) {

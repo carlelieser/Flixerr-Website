@@ -6,6 +6,7 @@
  */
 
 import React, { Component } from "react"
+import { Helmet } from "react-helmet"
 import PropTypes from "prop-types"
 
 import Header from "./header"
@@ -15,8 +16,8 @@ import "../styles/layout.css"
 class Layout extends Component {
     constructor(props) {
         super(props)
-	}
-	
+    }
+
     render() {
         const socialMediaData = [
             {
@@ -43,7 +44,7 @@ class Layout extends Component {
 
         const socialMedia = socialMediaData.map(item => {
             return (
-                <div className="social-media">
+                <div key={"social-" + item.name} className="social-media">
                     <a href={item.link}>
                         <FeatherIcons icon={item.icon} />
                     </a>
@@ -53,8 +54,16 @@ class Layout extends Component {
 
         return (
             <>
+                <Helmet>
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&family=Work+Sans:wght@300;400;600;700&display=swap"
+                        rel="stylesheet"
+                    />
+                </Helmet>
                 <div
-                    className={`${this.props.className} main-container content`}
+                    className={`${this.props.className} ${
+                        this.props.fadeLoad ? "" : "override-fade"
+                    } main-container content`}
                 >
                     <Header siteTitle="Flixerr" />
                     <main>{this.props.children}</main>
