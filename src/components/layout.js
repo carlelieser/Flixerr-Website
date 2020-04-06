@@ -15,23 +15,8 @@ import "../styles/layout.css"
 class Layout extends Component {
     constructor(props) {
         super(props)
-    }
-
-    initAnalytics = () => {
-        let analytics = Analytics({
-            app: "flixerrtv",
-            plugins: [
-                googleAnalytics({
-                    trackingId: "UA-162943044-1",
-                }),
-            ],
-        })
-        analytics.page()
-    }
-
-    componentDidMount() {
-        this.initAnalytics()
-    }
+	}
+	
     render() {
         const socialMediaData = [
             {

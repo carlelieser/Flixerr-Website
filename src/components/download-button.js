@@ -4,6 +4,8 @@ import axios from "axios"
 import cheerio from "cheerio"
 import { window } from "browser-monads"
 
+import { trackCustomEvent } from "gatsby-plugin-google-analytics"
+
 class DownloadButton extends Component {
     constructor(props) {
         super(props)
@@ -27,25 +29,28 @@ class DownloadButton extends Component {
 
     extractDownloadLinkFromHtml = async html => {
         let os = this.getOS()
-        let $ = cheerio.load(html)
         let links = []
-
-        $("a").each((index, element) => {
-            if (element) {
-                let link = element.attribs.href
-                if (link) {
-                    let isDownloadLink =
-                        link.indexOf(
-                            "/carlelieser/Flixerr/releases/download/"
-                        ) > -1
-                    let isCompatible = link.indexOf(os) > -1
-                    let completeLink = `https://github.com${link}`
-                    if (isDownloadLink && isCompatible) links.push(completeLink)
+        let mostRecentLink = []
+        if (html) {
+            let $ = cheerio.load(html)
+            $("a").each((index, element) => {
+                if (element) {
+                    let link = element.attribs.href
+                    if (link) {
+                        let isDownloadLink =
+                            link.indexOf(
+                                "/carlelieser/Flixerr/releases/download/"
+                            ) > -1
+                        let isCompatible = link.indexOf(os) > -1
+                        let completeLink = `https://github.com${link}`
+                        if (isDownloadLink && isCompatible)
+                            links.push(completeLink)
+                    }
                 }
-            }
-        })
+            })
 
-        let mostRecentLink = links[0]
+            mostRecentLink = links[0]
+        }
 
         return mostRecentLink
     }
@@ -70,44 +75,27 @@ class DownloadButton extends Component {
         this.setState({ downloadLink })
     }
 
-    initDownloadLink = async () => {
-        let url = await this.getDownloadLink()
-        this.setDownloadLink(url)
-    }
-
     toggleShowOs = () => {
         this.setState(prevState => {
             return {
                 showOs: !prevState.showOs,
             }
         })
-    }
-
-    updateAnalytics = () => {
-        let analytics = Analytics({
-            app: "flixerrtv",
-            plugins: [
-                googleAnalytics({
-                    trackingId: "UA-162943044-1",
-                }),
-            ],
-        })
-        analytics.track("downloadedApp", {
-            os,
-            analyticsLabel: label,
-        })
-    }
+	}
+	
+	openLink = async () => {
+		let url = await this.getDownloadLink();
+		window.open(url, '_blank');
+	}
 
     handleClick = () => {
-        let { analyticsLabel } = this.props
         let os = this.getOS()
-        this.updateAnalytics(os, analyticsLabel)
-    }
-
-    componentDidMount() {
-        if (window) {
-            this.initDownloadLink()
-        }
+        trackCustomEvent({
+            category: `${os} Downloads`,
+            action: "Download",
+            label: "Flixerr Campaign",
+		})
+		this.openLink();
     }
 
     render() {
@@ -120,20 +108,15 @@ class DownloadButton extends Component {
             <div
                 className={buttonClass}
                 onMouseEnter={this.toggleShowOs}
-                onMouseLeave={this.toggleShowOs}
+				onMouseLeave={this.toggleShowOs}
+				onClick={this.handleClick}
             >
                 <span>
-                    <a
-                        href={this.state.downloadLink}
-                        target="_blank"
-                        onClick={this.handleClick}
-                    >
-                        <FeatherIcon icon="download" size={20} />
-                        <span>
-                            {this.props.text}
-                            {this.state.showOs ? <span> for {os}</span> : ""}
-                        </span>
-                    </a>
+                    <FeatherIcon icon="download" size={20} />
+                    <span>
+                        {this.props.text}
+                        {this.state.showOs ? <span> for {os}</span> : ""}
+                    </span>
                 </span>
             </div>
         )

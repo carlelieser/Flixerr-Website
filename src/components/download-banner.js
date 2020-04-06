@@ -9,7 +9,7 @@ class DownloadBanner extends Component {
         return (
             <div className="download-banner-container">
                 <div className="download-banner-img">
-                    <img src={BannerImg} />
+                    <img alt="Banner Image" src={BannerImg} />
                 </div>
                 <div className="download-banner-content">
                     <div className="download-banner-title">

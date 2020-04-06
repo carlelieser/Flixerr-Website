@@ -48,7 +48,7 @@ class IndexPage extends Component {
                         Get the best free movie streaming experience. Period.
                     </div>
                     <div className="mockup">
-                        <img src={mockupImage} />
+                        <img alt="Mockup image" src={mockupImage} />
                     </div>
                 </div>
                 <Features />
