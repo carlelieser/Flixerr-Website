@@ -21,7 +21,7 @@ class DownloadBanner extends Component {
                     </div>
                     <DownloadButton
                         className="download-banner-btn"
-                        analyticsLabel="Download banner button"
+                        analyticsLabel="Download Banner Button"
                         text="Download Now"
                     />
                 </div>

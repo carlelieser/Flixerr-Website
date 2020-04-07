@@ -19,7 +19,7 @@ const Header = ({ siteTitle }) => (
             </div>
             <DownloadButton
                 className="nav-item"
-                analyticsLabel="Header download"
+                analyticsLabel="Header Download Button"
                 text="Download"
             />
         </div>
