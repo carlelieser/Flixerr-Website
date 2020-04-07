@@ -27,36 +27,24 @@ class DownloadButton extends Component {
         return OSName
     }
 
-    extractDownloadLinkFromHtml = async html => {
-        let os = this.getOS()
-        let links = []
-        let mostRecentLink = []
-        if (html) {
-            let $ = cheerio.load(html)
-            $("a").each((index, element) => {
-                if (element) {
-                    let link = element.attribs.href
-                    if (link) {
-                        let isDownloadLink =
-                            link.indexOf(
-                                "/carlelieser/Flixerr/releases/download/"
-                            ) > -1
-                        let isCompatible = link.indexOf(os) > -1
-                        let completeLink = `https://github.com${link}`
-                        if (isDownloadLink && isCompatible)
-                            links.push(completeLink)
-                    }
-                }
-            })
+    extractDownloadLink = async data => {
+        let { assets } = data,
+            os = this.getOS()
 
-            mostRecentLink = links[0]
-        }
+        let filtered = assets.filter(item => {
+            let containsOSName = item.name.indexOf(os) > -1
+            return containsOSName
+        })
 
-        return mostRecentLink
+        let chosen = filtered[0]
+        let link = chosen.browser_download_url
+
+        return link
     }
 
     getReleaseHtml = () => {
-        let url = "https://github.com/carlelieser/Flixerr/releases"
+        let url =
+            "https://api.github.com/repos/carlelieser/flixerr/releases/latest"
         return axios
             .get(url, { crossdomain: true })
             .then(response => {
@@ -67,7 +55,7 @@ class DownloadButton extends Component {
 
     getDownloadLink = async () => {
         let body = await this.getReleaseHtml()
-        let link = await this.extractDownloadLinkFromHtml(body)
+        let link = await this.extractDownloadLink(body)
         return link
     }
 
@@ -93,7 +81,7 @@ class DownloadButton extends Component {
         trackCustomEvent({
             category: `${os} Downloads`,
             action: "Download",
-            label: "Flixerr Campaign",
+            label: this.props.analyticsLabel,
         })
         this.openLink()
     }
