@@ -13,29 +13,40 @@ class DownloadButton extends Component {
         this.state = {
             downloadLink: false,
             showOs: false,
+            isMobile: false,
+            operatingSystem: false,
+            isUnsupported: false,
         }
     }
 
-    getOS = () => {
+    isMobile = () => {
+        let { userAgent } = navigator
+        let isMobile = userAgent.match(
+            /(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i
+        )
+        return isMobile
+    }
+
+    getOS = lowerCase => {
         let { navigator } = window
         let { appVersion } = navigator,
-            OSName = ""
+            OSName = "Unsupported"
         if (appVersion.indexOf("Win") != -1) OSName = "Windows"
         if (appVersion.indexOf("Mac") != -1) OSName = "MacOS"
-        if (appVersion.indexOf("X11") != -1) OSName = "UNIX"
+        if (appVersion.indexOf("X11") != -1) OSName = "Linux"
         if (appVersion.indexOf("Linux") != -1) OSName = "Linux"
+        OSName = lowerCase ? OSName.toLowerCase() : OSName
         return OSName
     }
 
     extractDownloadLink = async data => {
         let { assets } = data,
-            os = this.getOS()
-
+            os = this.getOS(true)
         let filtered = assets.filter(item => {
-            let containsOSName = item.name.indexOf(os) > -1
+            let name = item.name.toLowerCase()
+            let containsOSName = name.indexOf(os) > -1
             return containsOSName
         })
-
         let chosen = filtered[0]
         let link = chosen.browser_download_url
 
@@ -71,26 +82,71 @@ class DownloadButton extends Component {
         })
     }
 
-    openLink = async () => {
+    openDownloadLink = async () => {
         let url = await this.getDownloadLink()
         window.open(url, "_blank")
     }
 
     handleClick = () => {
-        let os = this.getOS()
-        trackCustomEvent({
-            category: `${os} Downloads`,
-            action: "Download",
-            label: this.props.analyticsLabel,
-        })
-        this.openLink()
+        let { operatingSystem, isUnsupported } = this.state
+        if (!isUnsupported) {
+            trackCustomEvent({
+                category: `${operatingSystem} Downloads`,
+                action: "Download",
+                label: this.props.analyticsLabel,
+            })
+            this.openDownloadLink()
+        }
+    }
+
+    initMobile = () => {
+        let isMobile = this.isMobile()
+        this.setState({ isMobile })
+    }
+
+    initOS = () => {
+        let operatingSystem = this.getOS()
+        this.setState({ operatingSystem })
+    }
+
+    init = () => {
+        this.initMobile()
+        this.initOS()
+    }
+
+    checkIfUnsupported = () => {
+        if (
+            this.state.operatingSystem === "Unsupported" ||
+            this.state.isMobile
+        ) {
+            this.setState({ isUnsupported: true })
+        } else {
+            this.setState({ isUnsupported: false })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            prevState.operatingSystem !== this.state.operatingSystem ||
+            prevState.isMobile !== this.state.isMobile
+        ) {
+            this.checkIfUnsupported()
+        }
+    }
+
+    componentDidMount() {
+        this.init()
     }
 
     render() {
-        let buttonClass = `${
-                this.props.className ? this.props.className : ""
-            } ${this.state.showOs ? "fade-in" : ""} btn btn-primary`,
-            os = this.getOS()
+        let { showOs, operatingSystem, isUnsupported } = this.state
+        let { className, text } = this.props
+        let buttonClass = `${className ? className : ""} ${
+            showOs ? "fade-in" : ""
+        } btn btn-primary`
+        let unSupportedStyles = {
+            backgroundColor: "#616161",
+        }
 
         return (
             <div
@@ -98,13 +154,21 @@ class DownloadButton extends Component {
                 onMouseEnter={this.toggleShowOs}
                 onMouseLeave={this.toggleShowOs}
                 onClick={this.handleClick}
+                style={isUnsupported ? unSupportedStyles : null}
             >
                 <span>
-                    <FeatherIcon icon="download" size={20} />
-                    <span>
-                        {this.props.text}
-                        {this.state.showOs ? <span> for {os}</span> : ""}
-                    </span>
+                    <FeatherIcon
+                        icon={isUnsupported ? "frown" : "download"}
+                        size={20}
+                    />
+                    {isUnsupported ? (
+                        <span>Unsupported</span>
+                    ) : (
+                        <span>
+                            {text}
+                            {showOs ? <span> for {operatingSystem}</span> : ""}
+                        </span>
+                    )}
                 </span>
             </div>
         )
