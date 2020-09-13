@@ -16,7 +16,7 @@ class DownloadBanner extends Component {
                         Let's get this party started.
                     </div>
                     <div className="download-banner-subtitle">
-                        You're one step closer to paying a LOT less for
+                        You're one step closer to paying a lot less for
                         entertainment.
                     </div>
                     <DownloadButton

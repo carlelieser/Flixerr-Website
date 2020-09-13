@@ -19,14 +19,29 @@ class Features extends Component {
                     icon: "award",
                     title: "Bestest & Mostest",
                     desc:
-                        "Stream over 400,000 movies in High-definition or Full HD. You choose.",
+                        "Stream over 400,000 movies in high-definition or full HD. You choose.",
                 },
                 {
                     icon: "cloud-lightning",
                     title: "Sync, sync, sync",
                     desc:
                         "Create an account and sync your favorite movies across all your devices.",
-                },
+				},
+				{
+					icon: 'cast',
+					title: 'Small screen? No problem.',
+					desc: 'Cast to any chromecast available device.'
+				},
+				{
+					icon: 'moon',
+					title: 'Pull an all-nighter.',
+					desc: 'Easily toggle between light and dark mode for your viewing pleasure.'
+				}, 
+				{
+					icon: 'gift',
+					title: 'Our gift.',
+					desc: 'Enjoy our beautifully designed app for free, always.'
+				}
             ],
         }
     }

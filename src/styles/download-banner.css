@@ -1,4 +1,4 @@
-.download-banner-container {
+.download-banner-container:last-child {
     width: 100%;
     margin-top: 3em;
     margin-bottom: 3em;

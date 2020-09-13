@@ -19,3 +19,18 @@
 .home-container > .mockup > img {
     width: 100%;
 }
+
+.mac-os-warning{
+	text-align: center;
+	max-width: 700px;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.mac-os-warning > svg{
+	color: rgba(255, 255, 255, 0.71);
+}
+
+.mac-os-warning > .title{
+	margin-top: 0.25em;
+}

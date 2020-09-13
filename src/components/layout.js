@@ -34,7 +34,7 @@ class Layout extends Component {
                 name: "Twitter",
                 icon: "twitter",
                 link: "https://twitter.com/theflixerr",
-            },
+			},
             {
                 name: "GitHub",
                 icon: "github",

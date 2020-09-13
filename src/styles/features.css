@@ -2,20 +2,23 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .features-container > .feature {
     width: auto;
-    height: auto;
+    height: 200px;
     min-width: 200px;
     margin-left: 1em;
     margin-right: 1em;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     background-color: transparent;
+    margin-top: 2em;
+    max-width: 26%;
 }
 
 .features-container > .feature > svg {
